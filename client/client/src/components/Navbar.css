@@ -1,0 +1,41 @@
+/* The Main Nav Row Container */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Pushes Logo, Links, and Button apart */
+  align-items: center;            /* Centers all items perfectly vertically */
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* The Logo Wrapper */
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Spaces emoji away from text */
+}
+
+/* The Links List (Removes standard bullet layout) */
+.navbar-links {
+  display: flex;
+  list-style: none; /* Removes bullet points */
+  margin: 0;
+  padding: 0;
+  gap: 2rem;        /* Spaces the links out evenly */
+}
+
+/* Individual Links Style */
+.navbar-links a {
+  text-decoration: none;
+  color: #666666;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active {
+  color: #4f46e5; /* Changes color to an accent indigo on hover/active */
+}
+

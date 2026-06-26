@@ -1,0 +1,72 @@
+/* Card Container */
+.calendar-card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  max-width: 450px;
+  margin: 2rem auto;
+}
+
+.calendar-card h3 {
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+/* Day labels grid layout */
+.weekday-labels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Generates 7 equal columns */
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+}
+
+/* The Matrix Heatmap Grid Layout */
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Enforces 7 boxes per row */
+  gap: 8px;                             /* Equal spacing between grid squares */
+}
+
+/* Base style for every day square */
+.grid-square {
+  aspect-ratio: 1 / 1; /* Forces the box to always stay a perfect square */
+  border-radius: 4px;
+  transition: transform 0.1s ease;
+}
+
+.grid-square:hover {
+  transform: scale(1.15); /* Soft pop effect when hover scanning over dates */
+  cursor: pointer;
+}
+
+/* Color Intensities */
+.grid-square.missed, .legend-square.missed {
+  background-color: #e5e7eb; /* Soft baseline grey for inactive days */
+}
+
+.grid-square.completed, .legend-square.completed {
+  background-color: #10b981; /* Vibrant green for active habits */
+}
+
+/* Bottom Legend UI alignment */
+.heatmap-legend {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 1.25rem;
+}
+
+.legend-square {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
