@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 
-const db = new Database('users.db');
+const db = new Database(process.env.DB_PATH || 'users.db');
 
 const getLogicalDate = (cutoffHours = 4) => {
   const now = new Date();
@@ -32,7 +32,7 @@ app.use(express.json());
 
 // Allow requests from the Vite dev server
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_ORIGIN || 'http://localhost:5173');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.sendStatus(204);
@@ -365,4 +365,5 @@ app.get('/api/heatmap-data', authenticateToken, (req, res) => {
 });
 
 // Start Server
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
