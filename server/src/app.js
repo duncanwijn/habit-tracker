@@ -30,10 +30,18 @@ db.prepare('CREATE TABLE IF NOT EXISTS habits (id INTEGER PRIMARY KEY AUTOINCREM
 const app = express();
 app.use(express.json());
 
+if (!process.env.CLIENT_ORIGIN) {
+  console.error("FATAL ERROR: CLIENT_ORIGIN is not defined.");
+  process.exit(1);
+}
 const ALLOWED_ORIGINS = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
   .split(',')
   .map(o => o.trim());
 
+if (ALLOWED_ORIGINS.length != 2) {
+  console.error("FATAL ERROR: CLIENT_ORIGIN must contain exactly two origins separated by a comma.");
+  process.exit(1);
+}
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (origin && ALLOWED_ORIGINS.includes(origin)) {

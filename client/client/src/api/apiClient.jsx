@@ -4,6 +4,10 @@ const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 if (!import.meta.env.VITE_API_URL && import.meta.env.PROD) {
   console.error('[apiClient] VITE_API_URL is not set. All API calls will fail in production. Set this variable in your Vercel project settings and redeploy.');
+} else if (!import.meta.env.PROD) {
+  console.log(`[apiClient] Using API base URL: ${BASE_URL}`);
+} else if (BASE_URL === 'http://localhost:3000') {
+  console.warn('[apiClient] Using default API base URL (http://localhost:3000). Make sure to set VITE_API_URL in your Vercel project settings for production.');
 }
 const apiClient = {
   async get(path) {
