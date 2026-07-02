@@ -2,6 +2,9 @@
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
+if (!import.meta.env.VITE_API_URL && import.meta.env.PROD) {
+  console.error('[apiClient] VITE_API_URL is not set. All API calls will fail in production. Set this variable in your Vercel project settings and redeploy.');
+}
 const apiClient = {
   async get(path) {
     const token = localStorage.getItem('token');
