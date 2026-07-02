@@ -11,7 +11,7 @@ export default function HabitForm({ onAdd }) {
     const { user } = useAuth();
     const navigate = useNavigate();
     const [name, setName] = useState('');
-    const [extraDetails, setExtraDetails] = useState({ freq: 'daily' });
+    const [extraDetails, setExtraDetails] = useState({ freq: 'daily', icon: '💧', type: 'count', customUnit: '', amount: 1 });
     const [showDetails, setShowDetails] = useState(false);
 
     const createHabit = (habit) => {
@@ -23,10 +23,10 @@ export default function HabitForm({ onAdd }) {
                     return response.json();
                 })
                 .then(data => {
-                    const newHabit = { id: data.habitId ?? Date.now(), name: habit.name, streak: 0, completed: false, freq: habit.freq ?? 'daily' };
+                    const newHabit = { id: data.habitId ?? Date.now(), name: habit.name, streak: 0, completed: false, freq: habit.freq ?? 'daily', icon: habit.icon ?? '', amount: habit.amount ?? 1, type: habit.type ?? 'count', customUnit: habit.customUnit ?? '' };
                     onAdd(prev => [...prev, newHabit]);
                     setName('');
-                    setExtraDetails({ freq: 'daily' });
+                    setExtraDetails({ freq: 'daily', icon: '💧', type: 'count', customUnit: '', amount: 1 });
                     console.log(`Habit created successfully with ID ${newHabit.id}.`);
                 })
                 .catch(error => console.error('Error creating habit:', error));
@@ -39,6 +39,7 @@ export default function HabitForm({ onAdd }) {
             navigate('/login');
             return;
         }
+        console.log('Creating habit with details:', { name: name.trim(), ...extraDetails });
         createHabit({ name: name.trim(), streak: 0, completed: false, ...extraDetails });
     };
 
@@ -49,7 +50,7 @@ export default function HabitForm({ onAdd }) {
               <div onClick={(e) => e.stopPropagation()}>
                   <HabitEdit
                       habit={{ name, streak: 0, completed: false, ...extraDetails }}
-                      onSave={(details) => { setExtraDetails({ freq: details.freq }); setName(details.name); setShowDetails(false); }}
+                      onSave={(details) => { console.log('Saving habit details:', details); setExtraDetails({ freq: details.freq, type: details.type, icon: details.icon, customUnit: details.customUnit, amount: details.amount }); setName(details.name); setShowDetails(false); }}
                       onCancel={() => setShowDetails(false)}
                   />
               </div>

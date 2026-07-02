@@ -1,72 +1,95 @@
-/* Card Container */
+/* Win98 HabitCalendar */
 .calendar-card {
-  background-color: #ffffff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  max-width: 450px;
-  margin: 2rem auto;
+  background-color: var(--win-surface);
+  font-family: var(--sans);
+  font-size: 11px;
 }
 
 .calendar-card h3 {
-  font-size: 1.1rem;
-  color: #1f2937;
-  margin-top: 0;
-  margin-bottom: 1.25rem;
+  background: var(--win-title-bg);
+  color: var(--win-title-text);
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 6px;
+  margin: 0;
+  user-select: none;
 }
 
-/* Day labels grid layout */
 .weekday-labels {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* Generates 7 equal columns */
+  grid-template-columns: repeat(7, 1fr);
   text-align: center;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #9ca3af;
-  margin-bottom: 0.5rem;
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--win-text);
+  padding: 4px 6px 2px;
 }
 
-/* The Matrix Heatmap Grid Layout */
 .heatmap-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* Enforces 7 boxes per row */
-  gap: 8px;                             /* Equal spacing between grid squares */
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  padding: 4px 6px;
 }
 
-/* Base style for every day square */
 .grid-square {
-  aspect-ratio: 1 / 1; /* Forces the box to always stay a perfect square */
-  border-radius: 4px;
-  transition: transform 0.1s ease;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--win-border-darker);
+  background: #fff;
+  cursor: default;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
-.grid-square:hover {
-  transform: scale(1.15); /* Soft pop effect when hover scanning over dates */
-  cursor: pointer;
+.grid-square-label {
+  font-size: 9px;
+  line-height: 1;
+  padding: 2px 3px;
+  color: var(--win-text);
+  user-select: none;
 }
 
-/* Color Intensities */
-.grid-square.missed, .legend-square.missed {
-  background-color: #e5e7eb; /* Soft baseline grey for inactive days */
+.grid-square.completed .grid-square-label {
+  color: var(--win-title-text);
 }
 
-.grid-square.completed, .legend-square.completed {
-  background-color: #10b981; /* Vibrant green for active habits */
+.grid-square.missed {
+  background-color: #e0e0e0;
 }
 
-/* Bottom Legend UI alignment */
+.grid-square.spacer {
+  background: transparent;
+  border-color: transparent;
+  pointer-events: none;
+}
+
+.grid-square.completed {
+  background-color: var(--win-title-bg);
+}
+
 .heatmap-legend {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 6px;
-  font-size: 0.75rem;
-  color: #6b7280;
-  margin-top: 1.25rem;
+  font-size: 10px;
+  color: var(--win-text);
+  padding: 4px 6px;
+  border-top: 1px solid var(--win-border-darker);
 }
 
 .legend-square {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--win-border-darker);
+}
+
+.legend-square.missed {
+  background-color: #e0e0e0;
+}
+
+.legend-square.completed {
+  background-color: var(--win-title-bg);
 }

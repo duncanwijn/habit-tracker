@@ -1,189 +1,137 @@
-/* Outer Container constraints */
+/* Win98 HabitList */
 .habit-list-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  background: var(--win-surface);
+  font-family: var(--sans);
+  font-size: 11px;
 }
 
-.habit-list-container h2 {
-  font-size: 1.25rem;
-  color: #1f2937;
-  margin-bottom: 1rem;
+.habit-list-container h3 {
+  background: var(--win-title-bg);
+  color: var(--win-title-text);
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 6px;
+  margin: 0;
+  user-select: none;
 }
 
-/* The vertical stack layout for all rows */
 .habit-list {
+  padding: 4px;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem; /* Direct spacing between items */
+  gap: 2px;
 }
 
-/* Individual Habit Row layout */
 .habit-row {
   display: flex;
-  justify-content: space-between; /* Pushes content to far left and far right */
-  align-items: center;            /* Vertically centers all elements inside row */
-  background-color: #ffffff;
-  padding: 1rem 1.25rem;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  transition: all 0.2s ease;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 2px solid;
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+  padding: 3px 6px;
+  font-size: 11px;
+  min-height: 24px;
 }
 
-/* Left alignment grouping */
+.habit-row.completed {
+  background: #c0ffc0;
+}
+
+.habit-row.completed .habit-name {
+  text-decoration: line-through;
+  color: var(--win-disabled);
+}
+
 .habit-info {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 6px;
 }
 
-/* The custom check circle styling */
 .status-checkbox {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid #d1d5db;
-  background-color: transparent;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  padding: 0;
+  font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  color: white;
+  background: #fff;
+  border: 2px solid;
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
   cursor: pointer;
-  transition: all 0.15s ease;
 }
 
-
-.status-checkbox:not(.disabled):hover {
-  border-color: #10b981;
+.status-checkbox.disabled {
+  cursor: default;
+  color: var(--win-disabled);
 }
 
-.status-checkbox.disabled,
-.delete-btn.disabled {
-  cursor: not-allowed;
+.habit-icon {
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
-/* Right alignment grouping */
+.habit-name-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.habit-name {
+  font-size: 11px;
+  color: var(--win-text);
+}
+
+.habit-amount-label {
+  font-size: 10px;
+  color: var(--win-disabled);
+}
+
 .habit-meta {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 8px;
 }
 
 .habit-streak {
-  font-size: 0.875rem;
-  color: #4b5563;
-  font-weight: 500;
-}
-
-.habit-due-date {
-  font-size: 0.8rem;
-  color: #9ca3af;
-}
-
-.info-btn {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #9ca3af;
-  background: none;
-  color: #9ca3af;
-  font-size: 0.7rem;
-  font-style: italic;
-  font-weight: 700;
-  font-family: Georgia, serif;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
-  padding: 0;
-}
-
-.info-btn:not(.disabled):hover {
-  border-color: #6b7280;
-  color: #6b7280;
-}
-
-.habit-overdue {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #ef4444;
-  color: #ef4444;
-  font-weight: 700;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: default;
+  font-size: 11px;
+  font-weight: bold;
+  min-width: 36px;
+  text-align: right;
 }
 
 .habit-meta-actions {
   display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  gap: 2px;
 }
 
+.info-btn,
 .delete-btn {
-  background: none;
-  border: none;
-  color: #9ca3af;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: color 0.15s ease;
+  min-width: 22px;
+  min-height: 20px;
+  padding: 1px 4px;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: var(--sans);
 }
 
-.delete-btn:not(.disabled):hover {
-  color: #ef4444;
+.info-btn.disabled,
+.delete-btn.disabled {
+  color: var(--win-disabled);
+  cursor: default;
 }
 
-/* --- INTERACTIVE STATE UTILITIES --- */
-
-/* Completed State Changes */
-.habit-row.completed {
-  background-color: #f9fafb;
-  border-color: #e5e7eb;
-}
-
-.habit-row.completed .status-checkbox {
-  background-color: #10b981; /* Green filled checkbox */
-  border-color: #10b981;
-}
-
-.habit-row.completed .habit-name {
-  text-decoration: line-through; /* Strikethrough completed text */
-  color: #9ca3af;
-}
-
-/* Edit overlay backdrop */
 .habit-edit-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
-}
-
-.add-habit-btn {
-  width: 100%;
-  padding: 0.75rem;
-  border: 2px dashed #e5e7eb;
-  border-radius: 10px;
-  background: none;
-  color: #9ca3af;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.add-habit-btn:not(.disabled):hover {
-  border-color: #10b981;
-  color: #10b981;
-}
-
-.add-habit-btn.disabled {
-  cursor: not-allowed;
+  z-index: 200;
 }

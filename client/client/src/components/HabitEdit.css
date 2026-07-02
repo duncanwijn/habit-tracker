@@ -1,105 +1,197 @@
+/* Win98 HabitEdit — dialog window */
 .habit-edit {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 1.75rem;
-  width: 360px;
+  background: var(--win-surface);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  font-family: var(--sans);
+  font-size: 11px;
+  box-shadow: 4px 4px 0 #000;
+  margin-left: 6px;
+  padding: 12px;
+  gap: 8px;
 }
 
-.habit-edit-title {
-  margin: 0 0 0.25rem;
-  font-size: 1.1rem;
-  color: #1f2937;
+.habit-edit-title-bar {
+  background: var(--win-title-bg);
+  color: var(--win-title-text);
+  font-weight: bold;
+  font-size: 11px;
+  padding: 3px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.habit-edit-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .habit-edit-label {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #6b7280;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: bold;
 }
 
 .habit-edit-input {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.95rem;
-  color: #1f2937;
-  outline: none;
-  transition: border-color 0.15s ease;
-}
-
-.habit-edit-input:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-}
-
-.habit-edit-checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  color: #374151;
-  cursor: pointer;
+  width: 100%;
+  height: 22px;
+  box-sizing: border-box;
+  font-size: 11px;
+  font-family: var(--sans);
 }
 
 .frequency-options {
   display: flex;
-  gap: 1.5rem;
-  padding-left: 0.25rem;
+  gap: 12px;
 }
 
 .frequency-option {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.9rem;
-  color: #374151;
+  gap: 4px;
+  font-size: 11px;
   cursor: pointer;
+}
+
+.habit-edit-name-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.habit-edit-icon-select {
+  width: 38px;
+  height: 22px;
+  flex-shrink: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 2px solid;
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.habit-edit-name-row .habit-edit-input {
+  flex: 1;
 }
 
 .habit-edit-actions {
   display: flex;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
+  gap: 4px;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-top: 1px solid var(--win-border-darker);
 }
 
-.habit-edit-save {
-  flex: 1;
-  padding: 0.6rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #10b981;
-  color: #ffffff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-
-.habit-edit-save:hover {
-  background-color: #059669;
-}
-
+.habit-edit-save,
 .habit-edit-cancel {
-  flex: 1;
-  padding: 0.6rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: none;
-  color: #6b7280;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  min-width: 75px;
+  height: 23px;
+  font-size: 11px;
+  font-family: var(--sans);
+}
+/* Container Layout */
+.habit-edit-input-group {
+  display: flex;
+  gap: 4px; /* Increased slightly for win98 aesthetic separation */
+  padding-inline: 4px;
+  justify-content: space-between;
+  background-color: #c0c0c0; /* Classic Win98 Teal/Gray backdrop */
+  font-size: 12px;
 }
 
-.habit-edit-cancel:hover {
-  border-color: #9ca3af;
-  color: #374151;
+/* Completely hide the default radio dot */
+.win98-radio-input {
+  display: none;
+}
+
+/* The block button state (Unselected) */
+.win98-radio-block {
+  flex: 1;
+  text-align: center;
+  background-color: #c0c0c0;
+  padding: 4px 6px;
+  cursor: pointer;
+  user-select: none;
+  color: #000000;
+  
+  /* Outer white top-left, dark gray bottom-right */
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  
+  /* Inner shadow effect for authentic look */
+  box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #0a0a0a;
+}
+
+/* The Selected Block State (Pressed Down) */
+.win98-radio-input:checked + .win98-radio-block {
+  /* Invert the borders to make it look sunken */
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  
+  box-shadow: inset 1px 1px 0px #0a0a0a, inset -1px -1px 0px #ffffff;
+  background-color: #e0e0e0; /* Slightly lighter or checkered hint */
+  
+  /* Text shifts down and right slightly when pressed */
+  padding: 5px 5px 3px 7px; 
+}
+
+/* Optional: Add a dotted focus ring around text when keyboard navigating */
+.win98-radio-input:focus-visible + .win98-radio-block {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
+}
+
+.habit-edit-amount-input {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+.habit-edit-unit {
+  margin-left: 4px;
+  font-size: 11px;
+  align-self: center;
+}
+
+.habit-edit-minus-amount-button,
+.habit-edit-plus-amount-button {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  min-height: 18px;
+  font-size: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+}
+
+.habit-edit-minus-amount-button:active,
+.habit-edit-plus-amount-button:active {
+  padding: 0;
+}
+
+.habit-edit-minus-amount-button {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.habit-edit-plus-amount-button {
+  margin-left: 6px;
 }

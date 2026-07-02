@@ -1,0 +1,46 @@
+/* Win98 ProgressTracker page */
+.progress-tracker {
+  background: var(--win-surface);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  padding: 2px;
+  font-family: var(--sans);
+  font-size: 11px;
+}
+
+.progress-tracker-title {
+  background: var(--win-title-bg);
+  color: var(--win-title-text);
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 6px;
+  margin: 0;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeframe-select {
+  font-family: var(--sans);
+  font-size: 10px;
+  background: var(--win-btn-face);
+  color: var(--win-text);
+  border: 2px solid;
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+  padding: 0 2px;
+  cursor: pointer;
+  user-select: auto;
+}
+
+.progress-tracker-body {
+  padding: 8px;
+}
+
+.heatmap-container {
+  overflow-x: auto;
+  border: 2px solid;
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+  background: #fff;
+  padding: 6px;
+}

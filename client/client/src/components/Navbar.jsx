@@ -13,7 +13,7 @@ export default function Navbar() {
             </div>
 
             <ul className="navbar-links">
-                <li><Link to="/habit-manager">Habit Manager</Link></li>
+                <li><Link to="/">Habit Manager</Link></li>
                 <li><Link to="/progress-tracker">Progress Tracker</Link></li>
                 <li><Link to="/analytics-dashboard">Analytics Dashboard</Link></li>
                 <li><Link to="/settings">Settings</Link></li>

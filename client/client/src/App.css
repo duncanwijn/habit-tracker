@@ -1,6 +1,12 @@
+/* App-level — Win98 */
 .counter {
-  font-size: 16px;
-  padding: 5px 10px;
+  font-size: 11px;
+  padding: 2px 6px;
+  color: var(--win-text);
+  background: var(--win-btn-face);
+  border: 2px solid;
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+}
   border-radius: 5px;
   color: var(--accent);
   background: var(--accent-bg);

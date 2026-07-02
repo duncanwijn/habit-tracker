@@ -1,0 +1,107 @@
+/* Win98 DailyModal — dialog window */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--win-surface);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  width: 360px;
+  max-width: 95vw;
+  font-family: var(--sans);
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.modal-title-bar {
+  background: var(--win-title-bg);
+  color: var(--win-title-text);
+  font-weight: bold;
+  font-size: 11px;
+  padding: 3px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.modal-title-bar button {
+  min-width: 16px;
+  min-height: 14px;
+  padding: 0 4px;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-body h2 {
+  font-size: 11px;
+  font-weight: bold;
+  margin: 0;
+  color: var(--win-text);
+  padding-left: 4px;
+}
+
+.modal-body p {
+  padding-left: 4px;
+  font-size: 11px;
+  line-height: 1.5;
+  border: 2px solid;
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+  background: #fff;
+  padding: 6px;
+  color: var(--win-text);
+}
+
+.modal-content .habit-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.modal-content .habit-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 2px solid;
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+  padding: 2px 6px;
+  font-size: 11px;
+}
+
+.modal-content .habit-list li span.completed {
+  color: #008000;
+  font-weight: bold;
+}
+
+.modal-content .habit-list li span.not-completed {
+  color: #800000;
+  font-weight: bold;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--win-border-darker);
+}

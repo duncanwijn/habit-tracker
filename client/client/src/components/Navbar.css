@@ -1,41 +1,53 @@
-/* The Main Nav Row Container */
+/* Win98 Navbar */
 .navbar {
   display: flex;
-  justify-content: space-between; /* Pushes Logo, Links, and Button apart */
-  align-items: center;            /* Centers all items perfectly vertically */
-  padding: 1rem 2rem;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 8px;
+  background: var(--win-surface);
+  border-bottom: 2px solid var(--win-border-darker);
+  border-top: 2px solid var(--win-border-light);
+  font-size: 11px;
+  font-family: var(--sans);
+  gap: 8px;
 }
 
-/* The Logo Wrapper */
 .navbar-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Spaces emoji away from text */
+  gap: 4px;
+  color: var(--win-text);
+  text-decoration: none;
 }
 
-/* The Links List (Removes standard bullet layout) */
 .navbar-links {
   display: flex;
-  list-style: none; /* Removes bullet points */
+  list-style: none;
   margin: 0;
   padding: 0;
-  gap: 2rem;        /* Spaces the links out evenly */
+  gap: 4px;
 }
 
-/* Individual Links Style */
-.navbar-links a {
+.navbar-links a,
+.navbar-links button {
+  font-size: 11px;
   text-decoration: none;
-  color: #666666;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  color: var(--win-text);
+  padding: 3px 10px;
+  min-width: 0;
+  background: var(--win-btn-face);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  cursor: pointer;
+  font-family: var(--sans);
 }
 
 .navbar-links a:hover,
+.navbar-links button:hover,
 .navbar-links a.active {
-  color: #4f46e5; /* Changes color to an accent indigo on hover/active */
+  background: var(--win-highlight);
+  color: var(--win-highlight-text);
 }
 

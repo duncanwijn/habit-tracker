@@ -1,40 +1,34 @@
-/* Master Layout Wrapper */
+/* Win98 HabitView layout */
 .habit-view-layout {
   display: flex;
-  flex-direction: row;       /* Forces columns to align side-by-side */
-  justify-content: center;    /* Centers the columns on screen */
-  align-items: flex-start;    /* Aligns both columns to the top boundary */
-  gap: 2.5rem;                /* Generates comfortable space between panels */
-  max-width: 1200px;          /* Restricts max application width on ultra-wide screens */
-  margin: 2rem auto;          /* Centers entire block horizontally */
-  padding: 0 1.5rem;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px;
 }
 
-/* Base style for individual side columns */
 .view-column {
-  flex: 1;                    /* Tells both columns to share available horizontal space equally */
-  width: 100%;
+  flex: 1;
+  background: var(--win-surface);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
 }
 
-/* Optional tuning parameters to give list view more visual dominance */
 .view-column.main-list {
-  flex: 1.3;                  /* Gives the checklist slightly more width than the map card */
+  flex: 2;
 }
 
 .view-column.metrics-calendar {
   flex: 1;
 }
 
-/* --- MOBILE RESPONSIVENESS OVERRIDE --- */
+.habit-modal {
+  position: relative;
+  z-index: 100;
+}
 
-/* When the screen width is narrower than 900px, break the columns into rows */
-@media (max-width: 900px) {
+@media (max-width: 700px) {
   .habit-view-layout {
-    flex-direction: column;   /* Changes orientation from horizontal row to vertical column stack */
-    gap: 1.5rem;              /* Compresses layout gap on smaller displays */
-  }
-  
-  .view-column {
-    flex: none;               /* Disables horizontal flexible constraints */
+    flex-direction: column;
   }
 }
