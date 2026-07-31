@@ -44,7 +44,12 @@
   font-family: var(--sans);
 }
 
-.navbar-links a:hover,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .navbar-links button:hover,
 .navbar-links a.active {
   background: var(--win-highlight);

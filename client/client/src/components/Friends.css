@@ -1,0 +1,253 @@
+/* Win98 Friends */
+.friends-container {
+  position: relative;
+  display: inline-flex;
+}
+
+.friends-btn {
+  background-color: var(--win-btn-face);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  width: 22px;
+  min-width: 22px;
+  max-width: 22px;
+  height: 22px;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.friends-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.friends-btn:hover {
+  background: var(--win-highlight);
+}
+
+.friends-btn:hover .friends-icon {
+  filter: invert(1);
+}
+
+.friends-btn:active {
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+}
+
+.friends-dropdown {
+  position: absolute;
+  top: calc(100% + 2px);
+  right: 0;
+  z-index: 100;
+  background: var(--win-surface);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  min-width: 180px;
+  font-family: var(--sans);
+  font-size: 11px;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.friends-dropdown-header {
+  background: var(--win-title-bg);
+  color: var(--win-title-text);
+  font-weight: bold;
+  padding: 3px 4px 3px 6px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.friends-dropdown-header::before {
+  content: '👥';
+  font-size: 11px;
+  margin-right: 2px;
+}
+
+.friends-dropdown-header span {
+  flex: 1;
+}
+
+.add-friend-btn,
+.close-btn {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+  background: var(--win-btn-face);
+  color: var(--win-text);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  min-width: 16px;
+  height: 14px;
+  padding: 0 3px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.add-friend-btn:hover,
+.close-btn:hover {
+  background: var(--win-highlight);
+  color: var(--win-highlight-text);
+}
+
+.add-friend-btn:active,
+.close-btn:active {
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+}
+
+.friends-list {
+  list-style: none;
+  margin: 0;
+  padding: 2px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.friend-item {
+  padding: 3px 8px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.friend-item-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.friend-item::before {
+  content: '🟢';
+  font-size: 8px;
+}
+
+.friend-item:hover {
+  background: var(--win-highlight);
+  color: var(--win-highlight-text);
+}
+
+.no-friends {
+  padding: 8px;
+  color: var(--win-disabled);
+  text-align: center;
+  font-style: italic;
+}
+
+.friends-searching {
+  padding: 8px;
+  color: var(--win-text);
+  text-align: center;
+  font-style: italic;
+}
+
+.not-logged-in {
+  padding: 6px 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.not-logged-in button {
+  font-family: var(--sans);
+  font-size: 11px;
+  background: var(--win-btn-face);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  padding: 2px 12px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.not-logged-in button:hover {
+  background: var(--win-highlight);
+  color: var(--win-highlight-text);
+}
+
+.not-logged-in button:active {
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+}
+
+.requests-list {
+  list-style: none;
+  margin: 0;
+  padding: 2px;
+  max-height: 180px;
+  overflow-y: auto;
+  border-top: 1px solid var(--win-border-darker);
+}
+
+.friend-request-item {
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.friend-request-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accept-btn,
+.decline-btn {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1;
+  background: var(--win-btn-face);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  min-width: 18px;
+  height: 16px;
+  padding: 0 3px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.accept-btn {
+  color: #006400;
+}
+
+.accept-btn:hover {
+  background: #006400;
+  color: #fff;
+}
+
+.decline-btn {
+  color: #8b0000;
+}
+
+.decline-btn:hover {
+  background: #8b0000;
+  color: #fff;
+}
+
+.accept-btn:active,
+.decline-btn:active {
+  border-color: var(--win-border-darker) var(--win-border-light) var(--win-border-light) var(--win-border-darker);
+}
+

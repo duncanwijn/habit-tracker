@@ -26,6 +26,17 @@ const getLogicalDate = (cutoffHours = 4) => {
 db.prepare('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, passwordHash TEXT)').run();
 db.prepare('CREATE TABLE IF NOT EXISTS completions (id INTEGER PRIMARY KEY AUTOINCREMENT, habitId INTEGER, date TEXT, amount INTEGER, logged_at TEXT, FOREIGN KEY(habitId) REFERENCES habits(id))').run();
 db.prepare('CREATE TABLE IF NOT EXISTS habits (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, userId INTEGER, created TEXT, freq TEXT, streak INTEGER, completed INTEGER DEFAULT 0, amount INTEGER DEFAULT 1, icon TEXT, type TEXT, customUnit TEXT, FOREIGN KEY(userId) REFERENCES users(id))').run();
+db.prepare(`CREATE TABLE IF NOT EXISTS Friendships (
+    friendship_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id_1 INTEGER,
+    user_id_2 INTEGER,
+    status TEXT DEFAULT 'pending',
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id_1) REFERENCES users(id),
+    FOREIGN KEY (user_id_2) REFERENCES users(id),
+    CONSTRAINT unique_friendship UNIQUE (user_id_1, user_id_2),
+    CONSTRAINT check_user_order CHECK (user_id_1 < user_id_2)
+)`).run();
 
 const app = express();
 app.use(express.json());
@@ -376,6 +387,94 @@ app.get('/api/heatmap-data', authenticateToken, (req, res) => {
     daysData[day].completionRate = active > 0 ? (completed / active) : 0;
   });
   return res.json({ monthData: daysData });
+});
+
+app.get('/api/friends', authenticateToken, (req, res) => {
+  const keywords = req.query.keywords || '';
+  const userId = req.user.userId;
+  if (!keywords || keywords.trim() === '') {
+    const friends = db.prepare(`
+      SELECT u.id, u.username, f.status
+      FROM Friendships f
+      JOIN users u ON (u.id = f.user_id_1 OR u.id = f.user_id_2)
+      WHERE (f.user_id_1 = ? OR f.user_id_2 = ?) AND u.id != ?
+    `).all(userId, userId, userId);
+    
+    return res.json({ friends });
+  }
+
+  const users = db.prepare('SELECT id, username FROM users WHERE username LIKE ?').all(`%${keywords}%`);
+  const filteredUsers = users.filter(u => u.id !== userId); // Exclude the current user
+  res.json({ friends: filteredUsers });
+});
+
+app.post('/api/friends/request', authenticateToken, (req, res) => {
+  const { friendUsername } = req.body;
+  const userId = req.user.userId;
+  
+  // Check if the friend exists
+  const friend = db.prepare('SELECT id FROM users WHERE username = ?').get(friendUsername);
+  if (!friend) {
+    return res.status(404).json({ message: 'User not found.' });
+  }
+  const friendId = friend.id;
+  
+  // Ensure the user is not trying to friend themselves
+  if (userId === friendId) {
+    return res.status(400).json({ message: 'You cannot send a friend request to yourself.' });
+  }
+  // Check if a friendship already exists
+  const existingFriendship = db.prepare(`
+    SELECT * FROM Friendships
+    WHERE (user_id_1 = ? AND user_id_2 = ?) OR (user_id_1 = ? AND user_id_2 = ?)
+  `).get(userId, friendId, friendId, userId);
+  if (existingFriendship) {
+    return res.status(400).json({ message: 'Friend request already exists or you are already friends.' });
+  }
+
+  // Create a new friend request
+  const userId1 = Math.min(userId, friendId);
+  const userId2 = Math.max(userId, friendId);
+  db.prepare('INSERT INTO Friendships (user_id_1, user_id_2, status) VALUES (?, ?, ?)').run(userId1, userId2, 'pending');
+  res.json({ message: 'Friend request sent.' });
+});
+
+app.post('/api/friends/respond', authenticateToken, (req, res) => {
+  const { friendId, action } = req.body;
+  const userId = req.user.userId;
+  
+  // Check if the friendship exists
+  const friendship = db.prepare(`
+    SELECT * FROM Friendships
+    WHERE (user_id_1 = ? AND user_id_2 = ?) OR (user_id_1 = ? AND user_id_2 = ?)
+  `).get(userId, friendId, friendId, userId);
+  
+  if (!friendship) {
+    return res.status(404).json({ message: 'Friend request not found.' });
+  }
+
+  if (action === 'accept') {
+    db.prepare('UPDATE Friendships SET status = ? WHERE friendship_id = ?').run('accepted', friendship.friendship_id);
+    return res.json({ message: 'Friend request accepted.' });
+  } else if (action === 'reject') {
+    db.prepare('DELETE FROM Friendships WHERE friendship_id = ?').run(friendship.friendship_id);
+    return res.json({ message: 'Friend request rejected.' });
+  } else {
+    return res.status(400).json({ message: 'Invalid action. Use "accept" or "reject".' });
+  }
+});
+
+app.get('/api/users', authenticateToken, (req, res) => {
+  const keywords = req.query.keywords || '';
+  const users = db.prepare('SELECT id, username FROM users WHERE username LIKE ?').all(`%${keywords}%`);
+  const filteredUsers = users.filter(u => u.id !== req.user.userId); // Exclude the current user
+  res.json({ users: filteredUsers });
+});
+
+app.get('/api/all-users', authenticateToken, (req, res) => {
+  const users = db.prepare('SELECT id, username FROM users').all();
+  const filteredUsers = users.filter(u => u.id !== req.user.userId); // Exclude the current user
+  res.json({ users: filteredUsers });
 });
 
 // Start Server
