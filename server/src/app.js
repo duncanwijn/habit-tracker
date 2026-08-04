@@ -477,6 +477,18 @@ app.get('/api/all-users', authenticateToken, (req, res) => {
   res.json({ users: filteredUsers });
 });
 
+app.get('/api/leaderboard/:friendId', authenticateToken, (req, res) => {
+  const { friendId } = req.params;
+  const habits = db.prepare('SELECT id, name, streak, completed as count FROM habits WHERE userId = ?').get(friendId);
+  const fullCompletions = habits.map(habit => {
+    const pastWeek = db.prepare('SELECT COUNT(*) FROM completions WHERE habitId = ? AND date >= date("now", "-7 days")').get(habit.id);
+    return { pastWeek };
+  })
+  
+
+  res.json({ streak: streak.streak, completed: completed.count, week: week.count });
+});
+
 // Start Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
