@@ -6,6 +6,8 @@ import SignupPage from './pages/Signup.jsx'
 import HomePage from './pages/HomePage.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
+import Settings from './pages/Settings.jsx'
+import Friends from './pages/Friends.jsx'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "/progress-tracker",
     element: <ProgressTracker />, // Placeholder for the progress tracker page
+  },
+  {
+    path: "/settings",
+    element: <Settings />,
+  },
+  {
+    path: "/friends",
+    element: <Friends />,
   },
   {
     path: "*",
