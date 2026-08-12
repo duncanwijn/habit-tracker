@@ -1,0 +1,40 @@
+.leaderboard-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.leaderboard-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.leaderboard-streak,
+.leaderboard-completed {
+    font-size: 0.9rem;
+    color: #64748b;
+    min-width: 3rem;
+    text-align: center;
+}
+
+.leaderboard-week {
+    display: flex;
+    gap: 4px;
+}
+
+.leaderboard-week span {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid #3b82f6;
+}
+
+.leaderboard-week span.completed {
+    background-color: #3b82f6;
+}
+
+.leaderboard-week span.not-completed {
+    background-color: transparent;
+}

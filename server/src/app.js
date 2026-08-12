@@ -479,14 +479,21 @@ app.get('/api/all-users', authenticateToken, (req, res) => {
 
 app.get('/api/leaderboard/:friendId', authenticateToken, (req, res) => {
   const { friendId } = req.params;
-  const habits = db.prepare('SELECT id, name, streak, completed as count FROM habits WHERE userId = ?').get(friendId);
-  const fullCompletions = habits.map(habit => {
-    const pastWeek = db.prepare('SELECT COUNT(*) FROM completions WHERE habitId = ? AND date >= date("now", "-7 days")').get(habit.id);
-    return { pastWeek };
-  })
-  
+  const maxStreak = db.prepare('SELECT MAX(streak) as streak FROM habits WHERE userId = ?').get(friendId);
+  const isCompletedQuery = db.prepare('SELECT SUM(completed) / COUNT(*) as count FROM habits WHERE userId = ?').get(friendId);
+  const isCompleted = isCompletedQuery.count < 1 ? false : true;
+  const weekCompletions = db.prepare('SELECT habitId, date FROM completions WHERE habitId IN (SELECT id FROM habits WHERE userId = ?) AND date >= date("now", "-7 days")').all(friendId);
+  const currentHabits = db.prepare('SELECT id FROM habits WHERE userId = ?').all(friendId);
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    return d.toISOString().split('T')[0];
+  });
+  const weekStatus = days.map(day =>
+    currentHabits.every(h => weekCompletions.some(c => c.habitId === h.id && c.date === day))
+  );
 
-  res.json({ streak: streak.streak, completed: completed.count, week: week.count });
+  res.json({ streak: maxStreak.streak, completed: isCompleted, week: weekStatus });
 });
 
 // Start Server
